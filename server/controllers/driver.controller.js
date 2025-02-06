@@ -1,10 +1,18 @@
 import Driver from "../models/driver.model.js";
+import User from "../models/user.model.js";
 
 //? Create a New Driver (Admin Only)
 export const createDriver = async (req, res) => {
   try {
 
     const { name, contactNumber, email, truckNumberPlate } = req.body;
+
+    //INFO: Check if driver already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "No user exists with this email address" });
+    }
+
 
     //INFO: Check if driver already exists
     const existingDriver = await Driver.findOne({ email });
@@ -77,6 +85,12 @@ export const updateDriver = async (req, res) => {
 
     //QUERY: Find the driver
     const driver = await Driver.findById(driverId);
+
+    //INFO: Check if driver already exists
+    const existingUser = await User.findOne({ email:driver.email });
+    if (existingUser) {
+      return res.status(400).json({ message: "No user exists with this email address" });
+    }
 
     //INFO: Check if the driver exists
     if (!driver) {
