@@ -20,10 +20,12 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const payload = { id: user._id, role: user.role.name };
+    const payload = { id: user._id, role: user.role.name, name: user.name };
+    console.log(payload);
     const token = jwt.sign(payload, config.JWT_SECRET, { expiresIn: "8h" });
 
-    res.json({ token, role: user.role.name });
+    res.json({ token, role: user.role.name, name: user.name });
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
