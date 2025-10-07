@@ -11,5 +11,6 @@ router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
 router.use("/drivers", driverRoutes);
 router.use("/trips", tripRoutes);
+// router.use("/settings", )
 
 export default router;

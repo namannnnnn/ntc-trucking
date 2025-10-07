@@ -4,6 +4,7 @@ import Role from "../models/role.model.js";
 import { config } from "../config/constants.js";
 
 export const authMiddleware = async (req, res, next) => {
+
   const token = req.header("Authorization")?.split(" ")[1];
 
   if (!token) {

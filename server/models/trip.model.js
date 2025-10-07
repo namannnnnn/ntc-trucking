@@ -27,7 +27,7 @@ const tripSchema = new mongoose.Schema({
 
 // // Middleware for automated calculations
 //! --------------------------------------------------FOR FUTURE PRE EVALUATIONS------------------------------------------------------------------------------
-tripSchema.pre("save", function (next) {
+tripSchema.pre("update", function (next) {
   if (this.startTime && this.endTime) {
     this.duration = Math.round((this.endTime - this.startTime) / (1000 * 60)); // Convert ms to minutes
   }
