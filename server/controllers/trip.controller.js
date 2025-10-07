@@ -1,6 +1,7 @@
 // controllers/trip.controller.js
 import Trip from "../models/trip.model.js";
 import User from "../models/user.model.js";
+import mongoose from "mongoose";
 
 //? Create a New Trip (Driver Only)
 export const createTrip = async (req, res) => {
@@ -192,8 +193,6 @@ export const updateFinancialData = async (req, res) => {
     trip.totalExpenses = trip.fuelCost + additionalCostSum;
     trip.balance = trip.grossIncome - trip.totalExpenses;
 
-    console.log(trip);
-
     //QUERY: Update the financial details for the trip
     await Trip.updateOne({ _id: tripId }, { $set: { ...trip } });
 
@@ -207,7 +206,18 @@ export const updateFinancialData = async (req, res) => {
 //? Get All Trips (Admin & Driver)
 export const getAllTrips = async (req, res) => {
   try {
-    const trips = await Trip.find().populate("driver", "name email");
+
+    let trips;
+
+    if(req.user.role == 'Driver'){
+          trips = await Trip.find({driver: new mongoose.Types.ObjectId(req.user.id)})
+                            .populate("driver", "name email")
+                            .sort({ createdAt: -1 });
+    } else {
+          trips = await Trip.find().populate("driver", "name email")
+                                   .sort({ createdAt: -1 });
+    }
+    
 
     res.status(200).json(trips);
   } catch (err) {

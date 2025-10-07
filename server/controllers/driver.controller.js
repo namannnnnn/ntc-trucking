@@ -40,7 +40,6 @@ export const createDriver = async (req, res) => {
 //? Get All Drivers (Admin & Staff)
 export const getAllDrivers = async (req, res) => {
   try {
-    console.log("inside")
     //QUERY: Find all drivers
     const drivers = await Driver.find();
 
@@ -48,7 +47,6 @@ export const getAllDrivers = async (req, res) => {
     if(drivers.length === 0){
         return res.status(404).json({ message: "No driver data found" });
     }
-    console.log(drivers)
     //* Drivers fetched successfully
     res.status(200).json(drivers);
   
