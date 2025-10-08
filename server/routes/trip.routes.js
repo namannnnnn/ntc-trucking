@@ -6,7 +6,8 @@ import {
   addDriverCosts,
   updateFinancialData,
   getAllTrips,
-  updateTrip
+  updateTrip,
+  deleteTrip
 } from "../controllers/trip.controller.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { checkRole } from "../middleware/roleMiddleware.js";
@@ -30,5 +31,7 @@ router.put("/:tripId/update", authMiddleware, checkRole(["Driver"]), updateTrip)
 
 //? Get all trips (Admin & Staff)
 router.get("/", authMiddleware, checkRole(["Admin", "Driver"]), getAllTrips);
+
+router.delete("/:tripId", authMiddleware, checkRole(["Admin"]), deleteTrip);
 
 export default router;

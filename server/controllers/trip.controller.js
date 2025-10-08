@@ -224,3 +224,27 @@ export const getAllTrips = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+//? Delete a Trip (Admin Only)
+export const deleteTrip = async (req, res) => {
+  try {
+    
+    const { tripId } = req.params;
+
+    //QUERY: To find the trip by id
+    const trip = await Trip.findById(tripId);
+
+    if (!trip) {
+      return res.status(404).json({ message: "Trip not found" });
+    }
+
+    //QUERY : Delete the driver by id
+    await Trip.findByIdAndDelete(tripId);
+
+    //* Driver was deleted successfully
+    res.status(200).json({ message: "Driver deleted successfully" });
+  
+} catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
