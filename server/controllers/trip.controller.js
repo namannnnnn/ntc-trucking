@@ -174,7 +174,7 @@ export const updateTrip = async (req, res) => {
 export const updateFinancialData = async (req, res) => {
   try {
     const { tripId } = req.params;
-    const { grossIncome, additionalIncome, mileage, payPerMile } = req.body;
+    const { grossIncome, additionalIncome, mileage, payPerMile, otherPay } = req.body;
 
     const trip = await Trip.findById(tripId);
     if (!trip) return res.status(404).json({ message: "Trip not found" });
@@ -184,7 +184,7 @@ export const updateFinancialData = async (req, res) => {
     trip.mileage = mileage || trip.mileage;
     trip.payPerMile = payPerMile || trip.payPerMile;
     trip.costPerMile = trip.mileage > 0 ? trip.fuelCost / trip.mileage : 0;
-
+    trip.otherPay = otherPay;
     trip.costPerMile = trip.mileage > 0 ? trip.fuelCost / trip.mileage : 0;
     const additionalCostSum = trip.additionalCosts.reduce(
       (sum, cost) => sum + cost.amount,

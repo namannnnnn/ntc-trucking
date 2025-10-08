@@ -16,6 +16,7 @@ const tripSchema = new mongoose.Schema({
   ],
   grossIncome: { type: Number, default: 0 },
   additionalIncome: { type: Number, default: 0 },
+  otherPay: { type: Number, default: 0 },
   fuelExpenses: { type: Number, default: 0 },
   mileage: { type: Number, default: 0 },
   payPerMile: { type: Number, default: 0 },
