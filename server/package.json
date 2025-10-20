@@ -10,10 +10,14 @@
   "dependencies": {
     "@colors/colors": "^1.6.0",
     "bcryptjs": "^2.4.3",
+    "dayjs": "^1.11.18",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.0"
+    "mongoose": "^7.0.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.9",
+    "pdfkit": "^0.17.2"
   },
   "author": "Naman Parmar",
   "license": "ISC"
