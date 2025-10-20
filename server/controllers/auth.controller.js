@@ -31,6 +31,17 @@ export const login = async (req, res) => {
   }
 };
 
+//INFO: For user login
+export const ServerLive = async (req, res) => {
+  try {
+  
+    res.json({ health: '200', message:'Server is up and running perfectly' });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 
 
 
